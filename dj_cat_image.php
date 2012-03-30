@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: category images
+Plugin Name: category image
 Plugin URI: http://www.tejuscreative.com/tejus_cat_img.html
 Description: a plugin to add images to category
 Version: 1.0
