@@ -1,0 +1,33 @@
+.wholeform{margin-top: 100px;
+margin-left: 100px;
+border: 4px black solid;
+padding: 10px;
+width: 600px;}
+#nameoffield{width: 400px; }
+#orderoffield{width: 400px; }
+#typeoffield{width: 200px; }
+#craeteformsubmit{}
+#nameoffieldwrap{width: 500px;
+margin-bottom: 10px;}
+#orderoffieldwrap{width: 500px;
+margin-bottom: 10px;}
+#typeoffieldwrap{width: 500px;
+margin-bottom: 10px;}
+#craeteformsubmitwrap{width: 500px;
+margin-bottom: 10px;}
+#nameoffieldwrap label{width:150px;}
+#orderoffieldwrap label{width:150px;}
+#typeoffieldwrap label{width:150px;}
+#craeteformsubmitwrap input{ margin-left:400px;cursor: pointer;}
+.createdform{margin-top: 100px;
+margin-left: 100px;
+border: 4px black solid;
+padding: 10px;
+width: 600px;}
+#valueswrap {width: 500px;
+margin-bottom: 10px; display:none;}
+#valueswrap label{width:150px;}
+#valueswrap textarea{width: 400px;
+height:200px;
+}
+.wholecategorywimagebox{margin-top: 50px;}
