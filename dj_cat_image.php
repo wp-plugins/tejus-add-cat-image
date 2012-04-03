@@ -3,7 +3,7 @@
 Plugin Name: category image
 Plugin URI: http://www.tejuscreative.com/tejus_cat_img.html
 Description: a plugin to add images to category
-Version: 1.0
+Version: 2.0
 Author:Dhananjay singh.
 Author URI: http://www.tejuscreative.com
 License:  GPL2
@@ -136,6 +136,7 @@ $djalladdedimagestocats = $wpdb->get_results($sql, ARRAY_A);
 <th>CATEGORY ID</th>
 <th>IMAGE</th>
 <th>CATEGORY NAME</th>
+<th>DELETE</th>
 </tr>
 </thead>
 <tfoot>
@@ -143,21 +144,69 @@ $djalladdedimagestocats = $wpdb->get_results($sql, ARRAY_A);
 <th>CATEGORY ID</th>
 <th>IMAGE</th>
 <th>CATEGORY NAME</th>
+<th>DELETE</th>
 </tr>
 </tfoot>
 <tbody>
 <?php
 foreach($djalladdedimagestocats as $djalladdedimagestocat){
 echo '<tr>';
-echo  '<td>'.$djalladdedimagestocat['catid'].'</td><td><img src="'.$djalladdedimagestocat['path'].'" width="50" height="50"/></td><td>'.get_cat_name($djalladdedimagestocat['catid']).'</td>';
+echo  '<td id="imageidis'.$djalladdedimagestocat['catid'].'">'.$djalladdedimagestocat['catid'].'</td><td><img src="'.$djalladdedimagestocat['path'].'" width="50" height="50"/></td><td>'.get_cat_name($djalladdedimagestocat['catid']).'</td><td><input type="button" name="delete" value="delete" id = "dj_image_delete'.$djalladdedimagestocat['catid'].'"  ></td>';
 echo '</tr>';
 }
  ?>
 </tbody>
 </table>
 </div>
-<?php
-}
+<script>
+ jQuery(function($){ 
+ $.ajaxSetup({
+  error:function(x,e){
+   if(x.status==0){
+   alert('You are offline!!\n Please Check Your Network.');
+   }else if(x.status==404){
+   alert('Requested URL not found.');
+   }else if(x.status==500){
+   alert('Internel Server Error.');
+   }else if(e=='parsererror'){
+   alert('Error.\nParsing JSON Request failed.');
+   }else if(e=='timeout'){
+   alert('Request Time out.');
+   }else {
+   alert('Unknow Error.\n'+x.responseText);
+   }
+  }
+ });
+<?php 
+$tejus_dj_cat_paths = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
+global $wpdb;
+$tejus_dj_cat_table_name = $wpdb->prefix."tejus_djcat";
+$sql= "SELECT * FROM ". $tejus_dj_cat_table_name;
+$djalladdedimagestocats = $wpdb->get_results($sql, ARRAY_A);
+foreach($djalladdedimagestocats as $djalladdedimagestocat){
+?>
+
+ $("#dj_image_delete<?php echo $djalladdedimagestocat['catid']; ?>").click( function (){
+var id<?php echo $djalladdedimagestocat['catid']; ?> = $("#<?php echo 'imageidis'.$djalladdedimagestocat['catid']; ?>").html();
+var datastring<?php echo $djalladdedimagestocat['catid']; ?> = "id="+id<?php echo $djalladdedimagestocat['catid']; ?>+"&action=delete";
+//alert(datastring<?php echo $djalladdedimagestocat['catid']; ?>);
+ $.ajax({
+      type: "POST",
+	  url: "<?php echo $tejus_dj_cat_paths; ?>dj_cat_update.php",
+      data: datastring<?php echo $djalladdedimagestocat['catid']; ?>,
+
+      success: function(html) {
+       
+       window.location.replace("<?php echo $_SERVER['REQUEST_URI']; ?>");
+       
+      }
+     });
+});
+ <?php } ?>
+ });
+ </script>
+  <?php } ?>
+ <?php
 /*function to be used to get image value associated with categories*/
 function tejus_dj_getcatimg($catid){
 global $wpdb;
