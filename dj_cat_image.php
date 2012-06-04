@@ -4,7 +4,7 @@ Plugin Name: category image
 Plugin URI: http://www.tejuscreative.com/tejus_cat_img.html
 Description: a plugin to add images to category
 Version: 2.0
-Author:Dhananjay singh.
+Author:dhananjaysingh.
 Author URI: http://www.tejuscreative.com
 License:  GPL2
 .
